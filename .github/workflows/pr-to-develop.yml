@@ -16,7 +16,8 @@ jobs:
 
       - name: Configure .NET 8
         run: |
-          curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --runtime dotnet --version 8.0.x
+          sudo apt-get update
+          sudo apt-get install -y dotnet-runtime-8.0
       
       - name: Allowing sh to execute
         run: chmod +x publish-native-aot.sh
