@@ -1,0 +1,38 @@
+name: Build and Create PR
+
+on:
+  push:
+    branches:
+      - 'feature/*'
+      - 'hotfix/*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v4
+
+      - name: Configure .NET 8
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+      
+      - name: Allowing sh to execute
+        run: chmod +x publish-native-aot.sh
+
+      - name: Publish
+        run: sh publish-native-aot.sh
+
+      - name: Criar Pull Request
+        if: success()
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Automatic merge from branch ${{ github.ref_name }} to develop"
+          branch: ${{ github.ref_name }}
+          base: develop
+          title: "Automatic merge from ${{ github.ref_name }} to develop"
+          body: "This Pull Request was generated automatically after a well succeeded build."
+          delete-branch: false
