@@ -35,10 +35,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set GH Variable
-        run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }}
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get install gh
 
       - name: Validate if pull request exists
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           PR_EXIST=$(gh pr list --base develop --head ${{ github.ref_name }} --state open --json number --jq '.[0].number')
           echo "PR Exists: $PR_EXIST"
