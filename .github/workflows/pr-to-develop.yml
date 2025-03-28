@@ -15,9 +15,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Configure .NET 8
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+          dotnet-quality: 'ga'
+      
+      - name: Install .NET 8 Runtime
         run: |
           sudo apt-get update
-          sudo apt-get install -y dotnet-runtime-8.0
+          sudo apt-get install -y dotnet-runtime-8.0 aspnetcore-runtime-8.0 dotnet-sdk-8.0
       
       - name: Allowing sh to execute
         run: chmod +x publish-native-aot.sh
