@@ -1,17 +1,20 @@
 #!/bin/bash
 set -e  # Script fails if has error
 
+export RID=$(dotnet --info | grep "RID" | awk '{print $2}')
+echo "Current runtime: $RID"
+
 # Navigate to folder
 cd src/MaintainUserData
 
 echo 'Restoring dependencies...'
-dotnet restore --use-current-runtime
+dotnet restore -r $RID
 
 echo 'Building...'
-dotnet build --configuration Release --no-restore --use-current-runtime
+dotnet build --configuration Release --no-restore -r $RID
 
 echo 'Publishing...'
-dotnet publish --configuration Release --no-restore --use-current-runtime --self-contained true -o ./publish
+dotnet publish --configuration Release --no-restore -r $RID --self-contained true -o ./publish
 
 echo 'Publish succeeded. Showing publish folder content:'
 cd publish
