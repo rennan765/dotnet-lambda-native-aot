@@ -5,10 +5,10 @@ set -e  # Script fails if has error
 cd src/MaintainUserData
 
 echo 'Restoring dependencies...'
-dotnet restore
+dotnet restore --use-current-runtime
 
 echo 'Building...'
-dotnet build --configuration Release --use-current-runtime
+dotnet build --configuration Release --no-restore --use-current-runtime
 
 echo 'Publishing...'
 dotnet publish --configuration Release --no-restore --use-current-runtime --self-contained true -o ./publish

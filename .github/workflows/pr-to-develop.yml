@@ -15,9 +15,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Configure .NET 8
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'
+        run: |
+          curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --runtime dotnet --version 8.0.x
       
       - name: Allowing sh to execute
         run: chmod +x publish-native-aot.sh
