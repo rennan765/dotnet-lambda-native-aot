@@ -31,6 +31,10 @@ jobs:
       - name: Publish
         run: sh publish-native-aot.sh
 
+  open-pr:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Criar Pull Request
         if: success()
         uses: peter-evans/create-pull-request@v6
