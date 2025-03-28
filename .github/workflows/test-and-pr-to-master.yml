@@ -1,0 +1,58 @@
+name: Test and Create PR to master
+
+on:
+  push:
+    branches:
+      - 'develop'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v4
+
+      - name: Configure .NET 8
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+          dotnet-quality: 'ga'
+
+      - name: Install Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+          sudo apt-get update
+          sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+      
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+    
+      - name: Running tests
+        run: |
+          chmod +x test/test-env.sh
+          sh test/test-env.sh
+          cd test/MaintainUserData.Tests
+          dotnet restore 
+          dotnet build --configuration Release
+          dotnet test --configuration Release
+    
+  open-pr-to-master:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v4
+
+      - name: Create PR
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: "master"
+          pr_label: "deploy, automated pr"
+          pr_title: "PR Created automatically from ${{ github.ref }} to master"
