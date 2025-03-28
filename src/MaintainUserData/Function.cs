@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace MaintainUserData;
 
+[ExcludeFromCodeCoverage]
 public class Function
 {
     private static IMaintainUserDataUseCase _useCase = null!;

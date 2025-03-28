@@ -11,7 +11,7 @@ public static class Mapper
 
         return new()
         {
-            Birth_Date = user.BirthDate,
+            Birth_Date = user.BirthDate.ToDateTime(TimeOnly.FromTimeSpan(TimeSpan.Zero)),
             Creation_Time = user.CreationTime,
             Document = user.Document,
             Email = user.ContactData.Email,
@@ -30,7 +30,7 @@ public static class Mapper
 
         return new()
         {
-            BirthDate = dto.Birth_Date,
+            BirthDate = DateOnly.FromDateTime(dto.Birth_Date),
             ContactData = new(dto.Phone, dto.Email),
             CreationTime = dto.Creation_Time,
             Document = dto.Document,

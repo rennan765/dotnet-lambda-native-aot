@@ -9,7 +9,7 @@ public record UserDto
 
     public string Document { get; init; }
 
-    public DateOnly Birth_Date { get; init; }
+    public DateTime Birth_Date { get; init; }
 
     public string Phone { get; init; }
 

@@ -5,7 +5,7 @@ using MaintainUserData.Domain.Entities;
 using MaintainUserData.Infrastructure.Serializers;
 using System.Text.Json;
 
-namespace MaintainUserData.Tests.UnitTests;
+namespace MaintainUserData.Tests.UnitTests.Application.UseCases;
 
 [Trait("MaintainUserDataUseCase", "Application")]
 public class MaintainUserDataUseCaseTest
