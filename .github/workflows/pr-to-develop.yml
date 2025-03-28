@@ -38,14 +38,10 @@ jobs:
     steps:
       - name: Code checkout
         uses: actions/checkout@v4
-        
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+
+      - name: Create PR
+        uses: repo-sync/pull-request@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Automatic merge from branch ${{ github.ref_name }} to develop"
-          branch: ${{ github.ref_name }}
-          base: develop
-          title: "Automatic merge from ${{ github.ref_name }} to develop"
-          body: "This Pull Request was generated automatically after a well succeeded build."
-          delete-branch: false
+          destination_branch: "develop"
+          pr_label: "feature, automated pr"
+          pr_title: "PR Created automatically from ${{ github.ref }}"
