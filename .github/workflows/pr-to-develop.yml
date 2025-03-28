@@ -35,6 +35,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Validate if pull request exists
+        run: |
+          PR_EXIST=$(gh pr list --base develop --head ${{ github.ref_name }} --state open --json number --jq '.[0].number')
+          echo "PR Exists: $PR_EXIST"
+          if [ -n "$PR_EXIST" ]; then
+            exit 0 
+          fi
+
       - name: Criar Pull Request
         if: success()
         uses: peter-evans/create-pull-request@v6
