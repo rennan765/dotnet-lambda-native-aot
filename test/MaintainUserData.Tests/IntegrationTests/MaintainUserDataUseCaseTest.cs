@@ -1,27 +1,27 @@
 ﻿using Dapper;
 using FluentAssertions;
 using MaintainUserData.Application.Gateways;
-using MaintainUserData.Application.UseCases;
 using MaintainUserData.Application.UseCases.Interfaces;
 using MaintainUserData.Domain.Entities;
 using MaintainUserData.Infrastructure.DataModels;
 using MaintainUserData.Infrastructure.Gateways;
-using MySqlConnector;
+using Microsoft.Extensions.DependencyInjection;
+using System.Data;
 
 namespace MaintainUserData.Tests.IntegrationTests;
 
-[Trait("MaintainUserDataUseCaseTest", "Integration")]
+[Trait("MaintainUserDataUseCase", "Integration")]
 public class MaintainUserDataUseCaseTest
 {
-    private readonly MySqlConnection _connection;
+    private readonly IDbConnection _connection;
     private readonly IUserGateway _gateway;
     private readonly IMaintainUserDataUseCase _useCase;
 
     public MaintainUserDataUseCaseTest()
     {
-        _connection = new(Environment.GetEnvironmentVariable("CONNECTION_STRING")!);
-        _gateway = new UserGateway(_connection);
-        _useCase = new MaintainUserDataUseCase(_gateway);
+        _connection = IoC.Provider.GetRequiredService<IDbConnection>();
+        _gateway = IoC.Provider.GetRequiredService<IUserGateway>();
+        _useCase = IoC.Provider.GetRequiredService<IMaintainUserDataUseCase>();
     }
 
     private async Task DeleteFromDocumentAsync(string document)

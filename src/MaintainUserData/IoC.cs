@@ -1,5 +1,4 @@
-﻿using Dapper;
-using MaintainUserData.Application.Gateways;
+﻿using MaintainUserData.Application.Gateways;
 using MaintainUserData.Application.UseCases;
 using MaintainUserData.Application.UseCases.Interfaces;
 using MaintainUserData.Infrastructure.Gateways;
