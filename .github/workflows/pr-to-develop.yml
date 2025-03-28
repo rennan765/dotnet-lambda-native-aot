@@ -36,9 +36,11 @@ jobs:
     needs: build
 
     steps:
+      - name: Code checkout
+        uses: actions/checkout@v4
+        
       - name: Create Pull Request
-        if: success()
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Automatic merge from branch ${{ github.ref_name }} to develop"
