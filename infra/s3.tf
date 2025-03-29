@@ -1,6 +1,6 @@
 # Deploy Lambda Functions
 resource "aws_s3_bucket" "deploy_lambda_functions" {
-  bucket = local.deploy_function_bucket_name
+  bucket = var.deploy_function_bucket_name
 }
 
 resource "aws_s3_bucket_public_access_block" "deploy_lambda_functions" {
@@ -66,7 +66,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "deploy_lambda_functions_lifecy
 
 # Terraform deployments
 resource "aws_s3_bucket" "terraform_deployments" {
-  bucket = local.terraform_deployments_bucket_name
+  bucket = var.terraform_deployments_bucket_name
 }
 
 resource "aws_s3_bucket_public_access_block" "terraform_deployments" {

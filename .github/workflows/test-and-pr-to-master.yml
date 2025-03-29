@@ -70,7 +70,8 @@ jobs:
      
       - name: Publish and move to S3
         run: |
-          chmod +x app/publish-native-aot.sh infra/scripts/variables/development.sh infra/scripts/helpers/verify-exec-on-s3.sh
+          chmod +x app/publish-native-aot.sh infra/scripts/variables/commons.sh infra/scripts/variables/development.sh infra/scripts/helpers/verify-exec-on-s3.sh
+          sh infra/scripts/variables/commons.sh
           sh infra/scripts/variables/development.sh
           sh infra/scripts/helpers/verify-exec-on-s3.sh
 
