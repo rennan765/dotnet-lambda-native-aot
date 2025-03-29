@@ -68,13 +68,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y dotnet-runtime-8.0 aspnetcore-runtime-8.0 dotnet-sdk-8.0
      
-      - name: Publish
+      - name: Publish and move to S3
         run: |
-          chmod +x app/publish-native-aot.sh
-          sh app/publish-native-aot.sh
-
-      - name: Move ZIP to S3
-        run: aws s3 mv app/MaintainUserData.zip s3://deploy-lambda-functions/MaintainUserData.zip
+          chmod +x app/publish-native-aot.sh infra/scripts/variables/development.sh infra/script/helpers/verify-exec-on-s3.sh
+          sh infra/scripts/variables/development.sh
+          sh infra/script/helpers/verify-exec-on-s3.sh
 
   open-pr-to-master:
     runs-on: ubuntu-latest

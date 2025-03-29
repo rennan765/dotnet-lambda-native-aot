@@ -4,18 +4,21 @@ resource "aws_lambda_function" "maintain_user_data" {
   handler         = local.function_handler
   runtime         = "dotnet8"
 
-  s3_bucket = local.deploy_function_bucket_name
-  s3_key    = local.function_filename
+  s3_bucket = var.deploy_function_bucket_name
+  s3_key    = var.function_filename
 
   environment {
     variables = {
       DOTNET_ENVIRONMENT = var.dotnet_environment,
-      AWS_REGION = data.aws_region.current.name
+      REGION = data.aws_region.current.name
       CONNECTION_STRING = aws_secretsmanager_secret_version.user_data_connection_string.secret_string
     }
   }
 
-  depends_on = [aws_s3_bucket.deploy_lambda_functions]
+  depends_on = [
+    aws_s3_bucket.deploy_lambda_functions,
+    aws_ssm_parameter.deploy_lambda_functions
+  ]
 }
 
 resource "aws_lambda_event_source_mapping" "sqs_trigger" {
