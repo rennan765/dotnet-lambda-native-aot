@@ -9,8 +9,8 @@
   "region": "sa-east-1",
   "configuration": "Release",
   "function-runtime": "dotnet8",
-  "function-memory-size": 512,
-  "function-timeout": 30,
-  "function-handler": "MaintainUserData::MaintainUserData.Function::HandleAsync",
+  "function-memory-size": 128,
+  "function-timeout": 60,
+  "function-handler": "MaintainUserData",
   "msbuild-parameters": "--self-contained true"
 }
