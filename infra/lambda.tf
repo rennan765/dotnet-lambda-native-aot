@@ -4,8 +4,8 @@ resource "aws_lambda_function" "maintain_user_data" {
   handler         = local.function_handler
   runtime         = "dotnet8"
 
-  s3_bucket = var.deploy_function_bucket_name
-  s3_key    = var.function_filename
+  s3_bucket = local.deploy_function_bucket_name
+  s3_key    = local.function_filename
 
   environment {
     variables = {
