@@ -29,7 +29,7 @@ jobs:
         run: chmod +x publish-native-aot.sh
 
       - name: Publish
-        run: sh publish-native-aot.sh
+        run: sh app/publish-native-aot.sh
 
   open-pr-to-develop:
     runs-on: ubuntu-latest

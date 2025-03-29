@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_aot_tests
+    environment:
+      MYSQL_ROOT_PASSWORD: default123
+      MYSQL_DATABASE: aot_tests
+      MYSQL_PASSWORD: default123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - my_network
+
+volumes:
+  mysqldata:
+    driver: local
+
+networks:
+  my_network:
+    driver: bridge
