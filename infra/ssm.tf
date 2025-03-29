@@ -25,7 +25,7 @@ resource "aws_ssm_parameter" "terraform_deployments" {
 
 resource "aws_ssm_parameter" "terraform_deployments_maintain_user_data" {
   name        = "/rennan765/terraform_deployments/maintain_user_data" 
-  description = "Database password for the application" 
+  description = "Folder for maintain-user-data function's tfstate files" 
   type        = "String" 
   value       = local.app_identification
 
