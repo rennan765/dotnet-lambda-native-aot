@@ -8,7 +8,7 @@
       "environmentVariables": {
         "AWS_LAMBDA_RUNTIME_API": "localhost:5050",
         "AWS_PROFILE": "default",
-        "AWS_REGION": "sa-east-1",
+        "REGION": "sa-east-1",
         "CONNECTION_STRING": "Server=localhost;Database=aot_tests;User Id=root;Password=default123;"
       }
     }
