@@ -2,7 +2,7 @@
 # Deploy Lambda Function
 resource "aws_ssm_parameter" "deploy_lambda_functions" {
   name        = "/rennan765/deploy_lambda_functions/bucket_name" 
-  description = "Database password for the application" 
+  description = "Bucket name for zip files and other executables used to deploy Lambda functions." 
   type        = "String" 
   value       = aws_s3_bucket.deploy_lambda_functions.id
 
@@ -14,9 +14,9 @@ resource "aws_ssm_parameter" "deploy_lambda_functions" {
 # Terraform Deployments
 resource "aws_ssm_parameter" "terraform_deployments" {
   name        = "/rennan765/terraform_deployments/bucket_name" 
-  description = "Database password for the application" 
+  description = "Bucket name for apps' terraform's tsfars files" 
   type        = "String" 
-  value       = aws_s3_bucket.deploy_lambda_functions.id
+  value       = aws_s3_bucket.terraform_deployments.id
 
   tags = {
     Environment = var.dotnet_environment
@@ -25,7 +25,7 @@ resource "aws_ssm_parameter" "terraform_deployments" {
 
 resource "aws_ssm_parameter" "terraform_deployments_maintain_user_data" {
   name        = "/rennan765/terraform_deployments/maintain_user_data" 
-  description = "Database password for the application" 
+  description = "Folder for maintain-user-data function's tfstate files" 
   type        = "String" 
   value       = local.app_identification
 

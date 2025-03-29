@@ -55,11 +55,8 @@ jobs:
        
       - name: Terraform plan
         run: |
-          cd infra
-          terraform fmt
-          terraform init
-          terraform validate
-          terraform plan -var='dotnet_environment=Development'
+          chmod +x infra/scripts/terraform-plan.sh
+          sh infra/scripts/terraform-plan.sh
 
   open-pr-to-develop:
     runs-on: ubuntu-latest
