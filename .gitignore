@@ -1,4 +1,5 @@
-.vs/
+app/.vs/
 [Bb]in
 [Oo]bj
-src/*/publish
+app/src/*/publish
+.terraform*
