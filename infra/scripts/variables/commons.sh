@@ -7,7 +7,7 @@ app_id_parameter_name="//rennan765\\terraform_deployments\\maintain_user_data"
 deploy_function_bucket_name_parameter_name="//rennan765\\deploy_lambda_functions\\bucket_name"
 terraform_deployments_bucket_name_parameter_name="//rennan765\\terraform_deployments\\bucket_name"
 
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+if uname | grep -q "Linux"; then
     app_id_parameter_name="/rennan765/terraform_deployments/maintain_user_data"
     deploy_function_bucket_name_parameter_name="/rennan765/deploy_lambda_functions/bucket_name"
     terraform_deployments_bucket_name_parameter_name="/rennan765/terraform_deployments/bucket_name"
