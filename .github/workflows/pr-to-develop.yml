@@ -24,10 +24,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y dotnet-runtime-8.0 aspnetcore-runtime-8.0 dotnet-sdk-8.0
-      
-      - name: Allowing sh to execute
-        run: 
-
+     
       - name: Publish
         run: |
           chmod +x app/publish-native-aot.sh
