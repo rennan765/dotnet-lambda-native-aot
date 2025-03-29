@@ -18,6 +18,8 @@
     <!--<TrimmerSingleWarn>false</TrimmerSingleWarn>-->
     <NoWarn>8618</NoWarn>
     <InterceptorsPreviewNamespaces>$(InterceptorsPreviewNamespaces);Dapper.AOT</InterceptorsPreviewNamespaces>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <AssemblyName>MaintainUserData</AssemblyName>
   </PropertyGroup>
   
   <ItemGroup>
