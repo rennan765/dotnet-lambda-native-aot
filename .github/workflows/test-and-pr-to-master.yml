@@ -35,7 +35,7 @@ jobs:
     
       - name: Running tests
         run: |
-          chmod +x test/test-env.sh
+          chmod +x app/test/test-env.sh
           sh app/test/test-env.sh
           cd app/test/MaintainUserData.Tests
           dotnet restore 

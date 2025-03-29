@@ -16,6 +16,8 @@ dotnet build --configuration Release --no-restore -r $RID
 echo 'Publishing...'
 dotnet publish --configuration Release --no-restore -r $RID --self-contained true -o ./publish
 
-echo 'Publish succeeded. Showing publish folder content:'
-cd publish
+echo 'Publish succeeded. Zipping files...'
+zip -r MaintainUserData.zip publish
+
+echo 'Success'
 ls -l
