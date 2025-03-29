@@ -4,8 +4,8 @@ resource "aws_lambda_function" "maintain_user_data" {
   handler         = local.function_handler
   runtime         = "dotnet8"
 
-  filename         = local.function_filename
-  source_code_hash = filebase64sha256(local.function_filename)
+  s3_bucket = local.deploy_function_bucket_name
+  s3_key    = local.function_filename
 
   environment {
     variables = {
@@ -14,6 +14,8 @@ resource "aws_lambda_function" "maintain_user_data" {
       CONNECTION_STRING = aws_secretsmanager_secret_version.user_data_connection_string.secret_string
     }
   }
+
+  depends_on = [aws_s3_bucket.deploy_lambda_functions]
 }
 
 resource "aws_lambda_event_source_mapping" "sqs_trigger" {

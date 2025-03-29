@@ -7,5 +7,5 @@ locals {
     function_name       = "maintain-user-data"
     function_runtime    = "dotnet8"
     function_handler    = "MaintainUserData"
-    function_filename   = "./publish/MaintainUserData.zip"
+    function_filename   = "MaintainUserData.zip"
 }
