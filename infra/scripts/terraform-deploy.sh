@@ -3,11 +3,13 @@ set -e  # Script fails if has error
 
 chmod +x app/publish-native-aot.sh \
     infra/scripts/variables/development.sh \
+    infra/scripts/variables/commons.sh \
     infra/scripts/helpers/get-tstate-files.sh \
     infra/scripts/helpers/verify-exec-on-s3.sh \
     infra/scripts/helpers/upload-tstate-files.sh
 
 sh infra/scripts/variables/development.sh
+sh infra/scripts/variables/commons.sh
 sh infra/scripts/helpers/get-tstate-files.sh
 sh infra/scripts/helpers/verify-exec-on-s3.sh
 

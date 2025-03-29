@@ -25,5 +25,7 @@ resource "aws_lambda_event_source_mapping" "sqs_trigger" {
   event_source_arn = aws_sqs_queue.user_data_received.arn
   function_name    = aws_lambda_function.maintain_user_data.arn
   enabled          = true
-  batch_size       = 15 
+  
+  batch_size                          = 15 
+  maximum_batching_window_in_seconds  = 10
 }
