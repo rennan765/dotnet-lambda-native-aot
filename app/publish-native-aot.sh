@@ -18,6 +18,9 @@ dotnet publish --configuration Release --no-restore -r $RID --self-contained tru
 
 echo 'Publish succeeded. Zipping files...'
 zip -r MaintainUserData.zip publish
+cd ..
+cd ..
+cd .. 
+sudo mv app/src/MaintainUserData/MaintainUserData.zip app/MaintainUserData.zip
 
 echo 'Success'
-ls -l
