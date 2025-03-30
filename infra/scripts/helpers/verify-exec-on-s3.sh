@@ -8,7 +8,7 @@ is_file_exists=$(aws s3api head-object --bucket $DEPLOY_FUNCTION_BUCKET_NAME --k
 if [ $is_file_exists = "false" ]; then
     echo "Exec file not found. Publishing again..."
 
-    sh app/publish-native-aot.sh
+    source app/publish-native-aot.sh
     aws s3 mv "app/$FUNCTION_FILENAME" s3://$DEPLOY_FUNCTION_BUCKET_NAME/
 
     echo "Publish succeeded, zipped and saved at $DEPLOY_FUNCTION_BUCKET_NAME"

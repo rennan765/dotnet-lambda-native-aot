@@ -8,10 +8,14 @@ chmod +x app/publish-native-aot.sh \
     infra/scripts/helpers/verify-exec-on-s3.sh \
     infra/scripts/helpers/upload-tstate-files.sh
 
-sh infra/scripts/variables/development.sh
-sh infra/scripts/variables/commons.sh
-sh infra/scripts/helpers/get-tstate-files.sh
-sh infra/scripts/helpers/verify-exec-on-s3.sh
+source infra/scripts/variables/development.sh
+source infra/scripts/variables/commons.sh
+source infra/scripts/helpers/get-tstate-files.sh
+
+echo $DEPLOY_FUNCTION_BUCKET_NAME
+echo $FUNCTION_FILENAME
+
+source infra/scripts/helpers/verify-exec-on-s3.sh
 
 cd infra
 terraform init
@@ -25,6 +29,8 @@ terraform plan -out deploy_from_sh \
     -var="terraform_deployments_bucket_name=$TERRAFORM_DEPLOYMENTS_BUCKET_NAME"
 
 terraform apply deploy_from_sh
+
+sudo rm deploy_from_sh
 cd ..
 
 sh infra/scripts/helpers/upload-tstate-files.sh
