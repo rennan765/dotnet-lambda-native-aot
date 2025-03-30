@@ -5,7 +5,7 @@ export RID=$(dotnet --info | grep "RID" | awk '{print $2}')
 echo "Current runtime: $RID"
 
 # Navigate to folder
-cd src/MaintainUserData
+cd app/src/MaintainUserData
 
 echo 'Restoring dependencies...'
 dotnet restore -r $RID
@@ -16,6 +16,11 @@ dotnet build --configuration Release --no-restore -r $RID
 echo 'Publishing...'
 dotnet publish --configuration Release --no-restore -r $RID --self-contained true -o ./publish
 
-echo 'Publish succeeded. Showing publish folder content:'
-cd publish
-ls -l
+echo 'Publish succeeded. Zipping files...'
+zip -r MaintainUserData.zip publish
+cd ..
+cd ..
+cd .. 
+sudo mv app/src/MaintainUserData/MaintainUserData.zip app/MaintainUserData.zip
+
+echo 'Success'

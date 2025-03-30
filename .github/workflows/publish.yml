@@ -1,0 +1,36 @@
+name: Publish
+
+on:
+    push:
+      branches:
+        - 'master'
+
+jobs:
+    checking-exec:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Code checkout
+              uses: actions/checkout@v4
+
+            - name: Configure .NET 8
+              uses: actions/setup-dotnet@v3
+              with:
+                dotnet-version: '8.0.x'
+                dotnet-quality: 'ga'
+            
+            - name: Install .NET 8 Runtime
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y dotnet-runtime-8.0 aspnetcore-runtime-8.0 dotnet-sdk-8.0
+            
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v2
+              with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region: sa-east-1
+
+            - name: Deploy
+              run: |
+                chmod +x infra/scripts/terraform-deploy.sh
+                sh infra/scripts/terraform-deploy.sh

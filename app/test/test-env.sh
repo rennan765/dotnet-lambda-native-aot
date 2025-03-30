@@ -3,7 +3,7 @@ set -e  # Script fails if has error
 
 echo 'Preparing environment for tests...'
 
-cd test
+cd app/test
 
 echo 'Setting env vars...'
 export CONNECTION_STRING="Server=localhost;Database=aot_tests;User Id=root;Password=default123;"

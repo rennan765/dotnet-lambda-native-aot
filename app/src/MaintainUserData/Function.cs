@@ -6,8 +6,6 @@ using MaintainUserData.Application.UseCases.Interfaces;
 using MaintainUserData.Infrastructure.Serializers;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: LambdaSerializer(typeof(DefaultLambdaJsonSerializer))]
-
 namespace MaintainUserData;
 
 [ExcludeFromCodeCoverage]

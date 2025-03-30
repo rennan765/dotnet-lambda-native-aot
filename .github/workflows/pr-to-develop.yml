@@ -7,7 +7,7 @@ on:
       - 'hotfix/*'
 
 jobs:
-  build:
+  build-app:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,16 +24,45 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y dotnet-runtime-8.0 aspnetcore-runtime-8.0 dotnet-sdk-8.0
-      
-      - name: Allowing sh to execute
-        run: chmod +x publish-native-aot.sh
-
+     
       - name: Publish
-        run: sh publish-native-aot.sh
+        run: |
+          chmod +x app/publish-native-aot.sh
+          sh app/publish-native-aot.sh
+    
+  terraform-validate: 
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v3
+      
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+            terraform_version: "^1.3.7"
+            terraform_wrapper: false
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: sa-east-1
+       
+      - name: Terraform plan
+        run: |
+          chmod +x infra/scripts/terraform-plan.sh
+          sh infra/scripts/terraform-plan.sh
 
   open-pr-to-develop:
     runs-on: ubuntu-latest
-    needs: build
+    needs: 
+      - build-app
+      - terraform-validate
 
     steps:
       - name: Code checkout

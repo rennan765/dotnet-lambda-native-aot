@@ -1,3 +1,8 @@
-.vs/
+app/.vs/
 [Bb]in
 [Oo]bj
+app/src/*/publish
+infra/publish
+.terraform*
+terraform.tfstate*
+*/*.zip
