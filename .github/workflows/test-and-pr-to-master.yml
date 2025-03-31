@@ -51,8 +51,13 @@ jobs:
     steps:
       - name: Install dependencies on Amazon Linux 2023
         run: |
-          chmod +x infra/scripts/install-dependencies-on-amazon-linux-2023.sh
-          sh infra/scripts/install-dependencies-on-amazon-linux-2023.sh
+          echo "Installing dependencies..."
+
+          yum install -y gcc glibc glibc-devel \
+              dotnet-sdk-8.0 tar gzip zlib-devel \
+              aws-cli
+
+          echo "Finished"
      
       - name: Configure .NET 8
         uses: actions/setup-dotnet@v3
