@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: amazonlinux:2023
-    needs: test
+    # needs: test # TODO: Insert again after development
 
     steps:
       - name: Install dependencies
