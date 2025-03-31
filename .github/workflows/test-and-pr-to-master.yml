@@ -49,6 +49,15 @@ jobs:
     needs: test
 
     steps:
+      - name: Configure .NET 8
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+          dotnet-quality: 'ga'
+      
+      - name: Install dependencies
+        run: yum install -y gcc glibc glibc-devel dotnet-sdk-8.0 tar
+     
       - name: Code checkout
         uses: actions/checkout@v4
 
@@ -59,15 +68,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: sa-east-1
 
-      - name: Configure .NET 8
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'
-          dotnet-quality: 'ga'
-      
-      - name: Install dependencies
-        run: yum install -y gcc glibc glibc-devel dotnet-sdk-8.0
-     
       - name: Publish and move to S3
         run: |
           chmod +x infra/scripts/publish-and-move-to-s3.sh
