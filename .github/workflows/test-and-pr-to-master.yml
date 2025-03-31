@@ -49,15 +49,15 @@ jobs:
     needs: test
 
     steps:
+      - name: Install dependencies
+        run: yum install -y gcc glibc glibc-devel dotnet-sdk-8.0 tar
+     
       - name: Configure .NET 8
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
           dotnet-quality: 'ga'
       
-      - name: Install dependencies
-        run: yum install -y gcc glibc glibc-devel dotnet-sdk-8.0 tar
-     
       - name: Code checkout
         uses: actions/checkout@v4
 
