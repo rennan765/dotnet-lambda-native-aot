@@ -13,7 +13,7 @@ resource "aws_lambda_function" "maintain_user_data" {
     variables = {
       DOTNET_ENVIRONMENT = var.dotnet_environment,
       REGION             = data.aws_region.current.name
-      CONNECTION_STRING  = aws_secretsmanager_secret_version.user_data_connection_string.secret_string
+      CONNECTION_STRING  = data.aws_secretsmanager_secret_version.db_test_secret_version.secret_string
     }
   }
 
