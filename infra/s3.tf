@@ -19,27 +19,27 @@ resource "aws_s3_bucket_policy" "deploy_lambda_functions_policy" {
       {
         Effect    = "Allow",
         Principal = "*",
-        Action    = [
+        Action = [
           "s3:PutObject",
           "s3:GetObject"
         ],
-        Resource  = "${aws_s3_bucket.deploy_lambda_functions.arn}/*",
+        Resource = "${aws_s3_bucket.deploy_lambda_functions.arn}/*",
         Condition = {
           StringEquals = {
-            "aws:PrincipalArn": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/*"
+            "aws:PrincipalArn" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/*"
           }
         }
       },
       {
         Effect    = "Allow",
         Principal = "*",
-        Action    = [
+        Action = [
           "s3:ListBucket"
         ],
-        Resource  = "${aws_s3_bucket.deploy_lambda_functions.arn}",
+        Resource = "${aws_s3_bucket.deploy_lambda_functions.arn}",
         Condition = {
           StringEquals = {
-            "aws:PrincipalArn": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/*"
+            "aws:PrincipalArn" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/*"
           }
         }
       }
@@ -55,7 +55,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "deploy_lambda_functions_lifecy
     status = "Enabled"
 
     filter {
-      prefix = "" 
+      prefix = ""
     }
 
     expiration {
@@ -85,27 +85,27 @@ resource "aws_s3_bucket_policy" "terraform_deployments_policy" {
       {
         Effect    = "Allow",
         Principal = "*",
-        Action    = [
+        Action = [
           "s3:PutObject",
           "s3:GetObject"
         ],
-        Resource  = "${aws_s3_bucket.terraform_deployments.arn}/*",
+        Resource = "${aws_s3_bucket.terraform_deployments.arn}/*",
         Condition = {
           StringEquals = {
-            "aws:SourceAccount": data.aws_caller_identity.current.account_id
+            "aws:SourceAccount" : data.aws_caller_identity.current.account_id
           }
         }
       },
       {
         Effect    = "Allow",
         Principal = "*",
-        Action    = [
+        Action = [
           "s3:ListBucket"
         ],
-        Resource  = "${aws_s3_bucket.terraform_deployments.arn}",
+        Resource = "${aws_s3_bucket.terraform_deployments.arn}",
         Condition = {
           StringEquals = {
-            "aws:SourceAccount": data.aws_caller_identity.current.account_id
+            "aws:SourceAccount" : data.aws_caller_identity.current.account_id
           }
         }
       }
