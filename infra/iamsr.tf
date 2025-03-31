@@ -7,7 +7,7 @@ resource "aws_iam_policy" "execute_maintain_user_data_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Sid = "SQS",
+        Sid    = "SQS",
         Effect = "Allow",
         Action = [
           "sqs:SendMessage",
@@ -20,9 +20,9 @@ resource "aws_iam_policy" "execute_maintain_user_data_policy" {
         ]
       },
       {
-        Sid = "SecretsManager",
-        Effect = "Allow",
-        Action = "secretsmanager:GetSecretValue",
+        Sid      = "SecretsManager",
+        Effect   = "Allow",
+        Action   = "secretsmanager:GetSecretValue",
         Resource = "arn:aws:secretsmanager:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:secret:*"
       }
     ]
@@ -36,9 +36,9 @@ resource "aws_iam_role" "execute_maintain_user_data_role" {
     Version = "2012-10-17",
     Statement = [
       {
-        Effect = "Allow",
-        Principal = { "Service": "lambda.amazonaws.com" },
-        Action = "sts:AssumeRole"
+        Effect    = "Allow",
+        Principal = { "Service" : "lambda.amazonaws.com" },
+        Action    = "sts:AssumeRole"
       }
     ]
   })
