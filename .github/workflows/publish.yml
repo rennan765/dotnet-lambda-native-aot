@@ -12,7 +12,7 @@ jobs:
           image: amazonlinux:2023
         steps:
             - name: Install dependencies
-              run: yum install -y gcc glibc glibc-devel dotnet-sdk-8.0 tar gzip
+              run: yum install -y gcc glibc glibc-devel dotnet-sdk-8.0 tar gzip zlib-devel
               
             - name: Configure .NET 8
               uses: actions/setup-dotnet@v3
