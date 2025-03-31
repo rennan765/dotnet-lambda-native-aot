@@ -50,7 +50,7 @@ jobs:
 
     steps:
       - name: Install dependencies
-        run: yum install -y gcc glibc glibc-devel dotnet-sdk-8.0 tar
+        run: yum install -y gcc glibc glibc-devel dotnet-sdk-8.0 tar gzip
      
       - name: Configure .NET 8
         uses: actions/setup-dotnet@v3
