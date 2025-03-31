@@ -44,6 +44,8 @@ jobs:
   
   move-executable-to-s3:
     runs-on: ubuntu-latest
+    container:
+      image: amazonlinux:2023
     needs: test
 
     steps:
@@ -63,10 +65,8 @@ jobs:
           dotnet-version: '8.0.x'
           dotnet-quality: 'ga'
       
-      - name: Install .NET 8 Runtime
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y dotnet-runtime-8.0 aspnetcore-runtime-8.0 dotnet-sdk-8.0
+      - name: Install dependencies
+        run: yum install -y gcc glibc glibc-devel dotnet-sdk-8.0
      
       - name: Publish and move to S3
         run: |
