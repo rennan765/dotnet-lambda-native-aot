@@ -49,8 +49,10 @@ jobs:
     # needs: test # TODO: Insert again after development
 
     steps:
-      - name: Install dependencies
-        run: sh infra/scripts/install-dependencies-on-amazon-linux-2023.sh
+      - name: Install dependencies on Amazon Linux 2023
+        run: |
+          chmod +x infra/scripts/install-dependencies-on-amazon-linux-2023.sh
+          sh infra/scripts/install-dependencies-on-amazon-linux-2023.sh
      
       - name: Configure .NET 8
         uses: actions/setup-dotnet@v3
