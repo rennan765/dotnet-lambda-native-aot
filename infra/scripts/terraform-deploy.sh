@@ -27,7 +27,6 @@ terraform plan -out deploy_from_sh \
 
 terraform apply deploy_from_sh
 
-sudo rm deploy_from_sh
 cd ..
 
 sh infra/scripts/helpers/upload-tstate-files.sh
