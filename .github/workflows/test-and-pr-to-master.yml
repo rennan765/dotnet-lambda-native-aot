@@ -84,13 +84,25 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      
+      - name: Configure GitHub CLI
+        run: gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          base: master
-          branch: ${{ github.ref_name }}
-          title: "Merge ${{ github.ref_name }} into master"
-          body: "Automated PR from ${{ github.ref_name }} to master."
-          labels: "automated-pr"
+      - name: Validate if PR exists
+        id: check_pr
+        run: |
+          IS_PR_EXISTS=$(gh pr list --base master --head ${{ github.ref_name }} --json number --jq '.[0].number')
+          if [[ -n "$IS_PR_EXISTS" ]]; then
+            echo "PR already exists: #$IS_PR_EXISTS"
+            echo "skip=true" >> $GITHUB_ENV
+          fi
+
+      - name: Creating Pull Request to master
+        if: env.skip != 'true'
+        run: |
+          gh pr create \
+            --base master \
+            --head ${{ github.ref_name }} \
+            --title "🚀 Auto PR from `${{ github.ref_name }}` to `master`" \
+            --body "This PR was created automatically via GitHub Actions." \
+            --label "auto-pr, needs-review"
