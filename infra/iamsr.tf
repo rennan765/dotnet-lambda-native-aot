@@ -24,6 +24,12 @@ resource "aws_iam_policy" "execute_maintain_user_data_policy" {
         Effect   = "Allow",
         Action   = "secretsmanager:GetSecretValue",
         Resource = "arn:aws:secretsmanager:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:secret:*"
+      },
+      {
+        Sid      = "EC2",
+        Effect   = "Allow",
+        Action   = "ec2:CreateNetworkInterface ",
+        Resource = "arn:aws:*:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"
       }
     ]
   })
