@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: amazonlinux:2023
-    # needs: run-app-tests # TODO: Insert again after development
+    needs: run-app-tests
 
     steps:
       - name: Install dependencies on Amazon Linux 2023
