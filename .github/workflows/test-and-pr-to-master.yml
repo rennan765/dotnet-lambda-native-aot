@@ -82,12 +82,26 @@ jobs:
     needs: move-executable-to-s3
 
     steps:
-      - name: Code checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
+      
+      - name: Configure GitHub CLI
+        run: gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: Create PR
-        uses: repo-sync/pull-request@v2
-        with:
-          destination_branch: "master"
-          pr_label: "deploy, automated pr"
-          pr_title: "PR Created automatically from ${{ github.ref }} to master"
+      - name: Validate if PR exists
+        id: check_pr
+        run: |
+          IS_PR_EXISTS=$(gh pr list --base master --head ${{ github.ref_name }} --json number --jq '.[0].number')
+          if [[ -n "$IS_PR_EXISTS" ]]; then
+            echo "PR already exists: #$IS_PR_EXISTS"
+            echo "skip=true" >> $GITHUB_ENV
+          fi
+
+      - name: Creating Pull Request to master
+        if: env.skip != 'true'
+        run: |
+          gh pr create \
+            --base master \
+            --head ${{ github.ref_name }} \
+            --title "🚀 Auto PR from ${{ github.ref_name }} to master" \
+            --body "This PR was created automatically via GitHub Actions. Once it is completed, it changes will be deployed to AWS account."
