@@ -19,3 +19,8 @@ data "aws_secretsmanager_secret" "db_test_secret" {
 data "aws_secretsmanager_secret_version" "db_test_secret_version" {
   secret_id = data.aws_secretsmanager_secret.db_test_secret.id
 }
+
+# EC2
+data "aws_security_group" "default" {
+  name = "default"
+}

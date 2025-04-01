@@ -23,6 +23,6 @@ cd ..
 cd ..
 cd ..
 cd .. 
-sudo mv app/src/MaintainUserData/publish/MaintainUserData.zip app/MaintainUserData.zip
+mv app/src/MaintainUserData/publish/MaintainUserData.zip app/MaintainUserData.zip
 
 echo 'Success'

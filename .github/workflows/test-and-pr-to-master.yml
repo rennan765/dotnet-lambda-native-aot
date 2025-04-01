@@ -44,9 +44,27 @@ jobs:
   
   move-executable-to-s3:
     runs-on: ubuntu-latest
-    needs: test
+    container:
+      image: amazonlinux:2023
+    # needs: test # TODO: Insert again after development
 
     steps:
+      - name: Install dependencies on Amazon Linux 2023
+        run: |
+          echo "Installing dependencies..."
+
+          yum install -y gcc glibc glibc-devel \
+              dotnet-sdk-8.0 tar gzip zlib-devel \
+              aws-cli
+
+          echo "Finished"
+     
+      - name: Configure .NET 8
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+          dotnet-quality: 'ga'
+      
       - name: Code checkout
         uses: actions/checkout@v4
 
@@ -57,17 +75,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: sa-east-1
 
-      - name: Configure .NET 8
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'
-          dotnet-quality: 'ga'
-      
-      - name: Install .NET 8 Runtime
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y dotnet-runtime-8.0 aspnetcore-runtime-8.0 dotnet-sdk-8.0
-     
       - name: Publish and move to S3
         run: |
           chmod +x infra/scripts/publish-and-move-to-s3.sh

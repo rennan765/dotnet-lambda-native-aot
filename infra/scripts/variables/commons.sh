@@ -24,3 +24,12 @@ echo "DEPLOY_FUNCTION_BUCKET_NAME: $DEPLOY_FUNCTION_BUCKET_NAME"
 
 export TERRAFORM_DEPLOYMENTS_BUCKET_NAME=$(aws ssm get-parameter --name $terraform_deployments_bucket_name_parameter_name --region sa-east-1 --query "Parameter.Value" --output text)
 echo "TERRAFORM_DEPLOYMENTS_BUCKET_NAME: $TERRAFORM_DEPLOYMENTS_BUCKET_NAME"
+
+export REGION=$(aws configure get region)
+echo "REGION: $REGION"
+
+export FUNCTION_NAME="maintain-user-data"
+echo "FUNCTION_NAME: $FUNCTION_NAME"
+
+export ALIAS_NAME=latest
+echo "ALIAS_NAME: $ALIAS_NAME"

@@ -1,3 +1,7 @@
+variable "subnet_ids" {
+  type = list(string)
+}
+
 variable "app_identification" {
   type    = string
   default = "MaintainUserData"
