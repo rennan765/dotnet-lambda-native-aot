@@ -11,6 +11,10 @@ data "aws_iam_policy" "default_lambda_policy" {
   name = "DefaultLambdaPolicy"
 }
 
+data "aws_iam_policy" "lambda_vpc_access" {
+  name = "AWSLambdaVPCAccessExecutionRole"
+}
+
 # Secrets Manager
 data "aws_secretsmanager_secret" "db_test_secret" {
   name = "db-test-connection-string"
