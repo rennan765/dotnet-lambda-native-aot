@@ -67,25 +67,10 @@ jobs:
     steps:
       - name: Code checkout
         uses: actions/checkout@v4
-      
-      - name: Configure GitHub CLI
-        run: gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
 
-      - name: Validate if PR exists
-        id: check_pr
-        run: |
-          IS_PR_EXISTS=$(gh pr list --base develop --head ${{ github.ref_name }} --json number --jq '.[0].number')
-          if [[ -n "$IS_PR_EXISTS" ]]; then
-            echo "PR already exists: #$IS_PR_EXISTS"
-            echo "skip=true" >> $GITHUB_ENV
-          fi
-
-      - name: Creating Pull Request to develop
-        if: env.skip != 'true'
-        run: |
-          gh pr create \
-            --base develop \
-            --head ${{ github.ref_name }} \
-            --title "🚀 Auto PR from `${{ github.ref_name }}` to `develop`" \
-            --body "This PR was created automatically via GitHub Actions." \
-            --label "auto-pr, needs-review"
+      - name: Create PR
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: "develop"
+          pr_label: "feature, automated pr"
+          pr_title: "PR Created automatically from ${{ github.ref }} to develop"
