@@ -87,5 +87,4 @@ jobs:
             --base develop \
             --head ${{ github.ref_name }} \
             --title "🚀 Auto PR from `${{ github.ref_name }}` to `develop`" \
-            --body "This PR was created automatically via GitHub Actions." \
-            --label "auto-pr, needs-review"
+            --body "This PR was created automatically via GitHub Actions."

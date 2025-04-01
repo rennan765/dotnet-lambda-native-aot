@@ -104,5 +104,4 @@ jobs:
             --base master \
             --head ${{ github.ref_name }} \
             --title "🚀 Auto PR from `${{ github.ref_name }}` to `master`" \
-            --body "This PR was created automatically via GitHub Actions." \
-            --label "auto-pr, needs-review"
+            --body "This PR was created automatically via GitHub Actions."
