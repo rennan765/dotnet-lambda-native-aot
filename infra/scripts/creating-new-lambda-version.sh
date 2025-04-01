@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e  # Script fails if has error
 
-chmod infra/scripts/variables/development.sh \
+chmod +x infra/scripts/variables/development.sh \
     infra/scripts/variables/commons.sh 
 
 . infra/scripts/variables/development.sh
