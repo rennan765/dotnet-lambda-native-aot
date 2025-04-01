@@ -24,12 +24,6 @@ resource "aws_iam_policy" "execute_maintain_user_data_policy" {
         Effect   = "Allow",
         Action   = "secretsmanager:GetSecretValue",
         Resource = "arn:aws:secretsmanager:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:secret:*"
-      },
-      {
-        Sid      = "EC2",
-        Effect   = "Allow",
-        Action   = "ec2:CreateNetworkInterface ",
-        Resource = "arn:aws:*:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:*"
       }
     ]
   })
@@ -58,4 +52,9 @@ resource "aws_iam_role_policy_attachment" "execute_maintain_user_data_policy_att
 resource "aws_iam_role_policy_attachment" "default_lambda_policy_attach" {
   role       = aws_iam_role.execute_maintain_user_data_role.name
   policy_arn = data.aws_iam_policy.default_lambda_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_vpc_access_policy_attach" {
+  role       = aws_iam_role.execute_maintain_user_data_role.name
+  policy_arn = data.aws_iam_policy.lambda_vpc_access.arn
 }
