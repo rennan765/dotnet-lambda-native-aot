@@ -15,12 +15,13 @@ aws lambda update-function-code \
   --function-name $FUNCTION_NAME \
   --zip-file fileb://$FUNCTION_FILENAME
 
+sleep 30
+
 echo "Creating a Lambda Function's new version..."
 NEW_VERSION=$(aws lambda publish-version --function-name $FUNCTION_NAME --query 'Version' --output text)
 
 echo "New version created successfully: $NEW_VERSION"
 
-# Atualizar o alias "latest" para a nova versão
 echo "Udating alias $ALIAS_NAME to version $NEW_VERSION..."
 aws lambda update-alias \
   --function-name $FUNCTION_NAME \

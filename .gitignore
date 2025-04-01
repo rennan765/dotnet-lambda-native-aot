@@ -6,3 +6,4 @@ infra/publish
 .terraform*
 terraform.tfstate*
 */*.zip
+*.zip
