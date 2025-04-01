@@ -19,6 +19,7 @@ terraform validate
 
 terraform plan -out deploy_from_sh \
     -var="dotnet_environment=$DOTNET_ENVIRONMENT" \
+    -var="subnet_ids=$SUBNET_IDS" \
     -var="app_identification=$APP_IDENTIFICATION" \
     -var="function_filename=$FUNCTION_FILENAME" \
     -var="deploy_function_bucket_name=$DEPLOY_FUNCTION_BUCKET_NAME" \

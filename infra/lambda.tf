@@ -24,6 +24,11 @@ resource "aws_lambda_function" "maintain_user_data" {
   timeout     = local.function_timeout
   memory_size = local.function_memory_size
 
+  vpc_config {
+    security_group_ids = [data.aws_security_group.default.id]
+    subnet_ids         = var.subnet_ids
+  }
+
   depends_on = [
     aws_s3_bucket.deploy_lambda_functions,
     aws_ssm_parameter.deploy_lambda_functions
