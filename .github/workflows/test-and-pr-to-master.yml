@@ -6,7 +6,7 @@ on:
       - 'develop'
 
 jobs:
-  test:
+  run-app-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,9 +27,6 @@ jobs:
           sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
           sudo apt-get update
           sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-      
-      - name: Install Docker Compose
-        run: |
           sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
     
@@ -46,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: amazonlinux:2023
-    # needs: test # TODO: Insert again after development
+    # needs: run-app-tests # TODO: Insert again after development
 
     steps:
       - name: Install dependencies on Amazon Linux 2023
